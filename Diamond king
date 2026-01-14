@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Diamond King - Earn Free Fire Diamonds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ========== ROOT VARIABLES ========== */
+        :root {
+            --primary: #FFD700;
+            --secondary: #00D4FF;
+            --danger: #FF4757;
+            --success: #2ED573;
+            --dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+        }
+        
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            background-attachment: fixed;
+        }
+        
+        /* ========== LOGIN PAGE ========== */
+        .login-container {
+            max-width: 400px;
+            margin: 30px auto;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .login-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #aaa;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* ========== CONTAINER & HEADER ========== */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* ========== CARDS ========== */
+        .card {
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        /* ========== COIN DISPLAY ========== */
+        .coin-display {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .coin-amount {
+            font-size: 72px;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* ========== BUTTONS ========== */
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 0;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ========== REFERRAL CODE ========== */
+        .referral-code {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            color: var(--primary);
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        /* ========== PROGRESS BAR ========== */
+        .progress-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00D4FF, #2ED573);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        /* ========== STATS GRID ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        /* ========== NAVIGATION ========== */
+        .nav-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-btn.active {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--primary);
+        }
+        
+        /* ========== WITHDRAWAL PAGE ========== */
+        .withdrawal-container {
+            max-width: 500px;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        .withdrawal-form {
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .withdrawal-history {
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .history-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .status-pending {
+            color: #FFD700;
+        }
+        
+        .status-approved {
+            color: #2ED573;
+        }
+        
+        .status-rejected {
+            color: #FF4757;
+        }
+        
+        /* ========== QUIZ MODAL ========== */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .quiz-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 500px;
+            margin: 50px auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .question {
+            font-size: 20px;
+            margin: 20px 0;
+            color: var(--secondary);
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .quiz-btn {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quiz-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--secondary);
+        }
+        
+        .quiz-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* ========== NOTIFICATION ========== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1001;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* ========== LOADER ========== */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ========== ADMIN PANEL ========== */
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: none;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .admin-card {
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table th {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--primary);
+        }
+        
+        /* ========== ACTION BUTTONS ========== */
+        .action-btn {
+            padding: 5px 10px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+        
+        .approve-btn {
+            background: var(--success);
+            color: white;
+        }
+        
+        .reject-btn {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .add-coins-btn {
+            background: var(--primary);
+            color: black;
+        }
+        
+        /* ========== SEARCH BOX ========== */
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        /* ========== WEEKLY BADGE ========== */
+        .weekly-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        /* ========== DIAMOND COUNTER ========== */
+        .diamond-counter {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin: 10px 0;
+        }
+        
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .coin-amount {
+                font-size: 48px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .coin-amount {
+                font-size: 36px;
+            }
+            
+            .btn {
+                padding: 15px;
+                font-size: 14px;
+            }
+        }
+        
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFC800;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== LOGIN PAGE ========== -->
+    <div id="loginPage" class="login-container fade-in">
+        <div class="login-tabs">
+            <button class="tab-btn active" onclick="showTab('login')">
+                <i class="fas fa-sign-in-alt"></i> লগইন
+            </button>
+            <button class="tab-btn" onclick="showTab('register')">
+                <i class="fas fa-user-plus"></i> রেজিস্টার
+            </button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="loginForm" class="login-form active">
+            <div class="form-group">
+                <label for="loginEmail"><i class="fas fa-envelope"></i> ইমেইল</label>
+                <input type="email" id="loginEmail" placeholder="আপনার ইমেইল">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword"><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                <input type="password" id="loginPassword" placeholder="আপনার পাসওয়ার্ড">
+            </div>
+            <button class="btn" onclick="login()" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> লগইন করুন
+            </button>
+            <div id="loginLoader" class="loader" style="display:none;"></div>
+        </div>
+        
+        <!-- Registration Form -->
+        <div id="registerForm" class="login-form">
+            <div class="form-group">
+                <label for="regName"><i class="fas fa-user"></i> পূর্ণ নাম</label>
+                <input type="text" id="regName" placeholder="আপনার পূর্ণ নাম">
+            </div>
+            <div class="form-group">
+                <label for="regEmail"><i class="fas fa-envelope"></i> ইমেইল</label>
+                <input type="email" id="regEmail" placeholder="আপনার ইমেইল">
+            </div>
+            <div class="form-group">
+                <label for="regPassword"><i class="fas fa-lock"></i> পাসওয়ার্ড</label>
+                <input type="password" id="regPassword" placeholder="পাসওয়ার্ড (ন্যূনতম ৬ অক্ষর)">
+            </div>
+            <div class="form-group">
+                <label for="regReferral"><i class="fas fa-user-friends"></i> রেফারেল কোড <span style="color:#666">(ঐচ্ছিক)</span></label>
+                <input type="text" id="regReferral" placeholder="রেফারেল কোড (ঐচ্ছিক)">
+                <small style="color:#aaa; font-size:12px;"><i class="fas fa-info-circle"></i> রেফারেল কোড না থাকলে খালি রাখুন</small>
+            </div>
+            <button class="btn" onclick="register()" id="registerBtn">
+                <i class="fas fa-user-plus"></i> রেজিস্টার করুন
+            </button>
+            <div id="registerLoader" class="loader" style="display:none;"></div>
+        </div>
+    </div>
+    
+    <!-- ========== MAIN APP ========== -->
+    <div id="appPage" class="container">
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <button class="nav-btn active" onclick="showPage('dashboard')">
+                <i class="fas fa-home"></i> ড্যাশবোর্ড
+            </button>
+            <button class="nav-btn" onclick="showPage('withdrawal')">
+                <i class="fas fa-money-bill-wave"></i> উইথড্রয়াল
+            </button>
+            <button class="nav-btn" onclick="showPage('admin')" id="adminNavBtn" style="display:none;">
+                <i class="fas fa-cogs"></i> অ্যাডমিন
+            </button>
+            <button class="nav-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> লগআউট
+            </button>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">💎</div>
+            <h1>DIAMOND KING 👑</h1>
+            <p class="tagline">Earn Coins → Claim Free Fire Diamonds</p>
+            <p id="userEmail" style="color:#aaa; font-size:12px; margin-top:10px;">
+                <i class="fas fa-user"></i> 
+            </p>
+        </div>
+        
+        <!-- Coin Balance -->
+        <div class="card fade-in">
+            <div class="coin-display">
+                <div class="coin-amount" id="totalCoins">0</div>
+                <div style="color: #aaa; font-size: 14px;">TOTAL COINS</div>
+                <div style="margin-top: 10px;">
+                    <span style="color: var(--secondary); font-size: 18px;" id="diamondsText">0 💎</span>
+                    <span style="color: #aaa; font-size: 12px;"> (Weekly Diamonds)</span>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="dailyEarnings">0</div>
+                    <div class="stat-label"><i class="fas fa-coins"></i> Today's Earn</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="totalRefers">0</div>
+                    <div class="stat-label"><i class="fas fa-users"></i> Total Refers</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Quiz -->
+        <div class="card fade-in">
+            <h3><i class="fas fa-question-circle"></i> DAILY QUIZ</h3>
+            <p style="color: #aaa; margin: 10px 0;">
+                <i class="fas fa-lightbulb"></i> 5টি প্রশ্নের উত্তর দিন, সব সঠিক হলে পাবেন 5 Coins
+            </p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="quizProgressFill" style="width: 0%"></div>
+            </div>
+            <div style="text-align: center; color: #aaa; font-size: 14px; margin: 10px 0;">
+                <span id="quizProgressText">0/30</span> Quiz Coins Earned (Maximum 30)
+            </div>
+            <button class="btn" onclick="startQuiz()" id="quizBtn">
+                <i class="fas fa-play"></i> START QUIZ NOW
+            </button>
+            <p style="color: #666; font-size: 12px; margin-top: 10px; text-align: center;">
+                <i class="fas fa-bolt"></i> সর্বোচ্চ 30 কয়েন পর্যন্ত Quizzes খেলতে পারবেন
+            </p>
+        </div>
+        
+        <!-- Referral System -->
+        <div class="card fade-in">
+            <h3><i class="fas fa-user-friends"></i> REFERRAL SYSTEM</h3>
+            <p style="color: #aaa; margin: 10px 0;">Your Referral Code:</p>
+            <div class="referral-code" id="userReferralCode">DK-XXXXXX</div>
+            <p style="color: #666; font-size: 12px; margin: 10px 0;">
+                <i class="fas fa-share-alt"></i> Share this code to friends. তারা ব্যবহার করলে আপনি পাবেন 50 Coins
+            </p>
+            <button class="btn" onclick="showReferralInfo()">
+                <i class="fas fa-link"></i> REFER FRIEND
+            </button>
+        </div>
+        
+        <!-- Reward Section -->
+        <div class="card fade-in">
+            <h3><i class="fas fa-gift"></i> WEEKLY REWARD <span class="weekly-badge">WEEKLY</span></h3>
+            <div style="text-align: center; margin: 20px 0;">
+                <div style="font-size: 24px; color: var(--primary); margin-bottom: 10px;">
+                    <i class="fas fa-gem"></i> Free Fire Diamonds
+                </div>
+                <div style="color: #aaa; font-size: 14px;">
+                    7000 Coins লাগবে <span style="color:var(--secondary)">(Weekly Claim)</span>
+                </div>
+                <div class="diamond-counter">
+                    445 💎 Diamonds
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div style="text-align: center; color: #aaa; font-size: 14px; margin: 10px 0;">
+                <span id="progressText">0/7000</span> coins collected
+            </div>
+            
+            <button class="btn" onclick="goToWithdrawal()" style="background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);">
+                <i class="fas fa-gem"></i> CLAIM WEEKLY DIAMONDS
+            </button>
+            
+            <div style="margin-top: 15px; padding: 12px; background: rgba(0, 212, 255, 0.1); border-radius: 10px;">
+                <p style="color: #00D4FF; font-size: 12px; margin: 0; text-align: center;">
+                    <i class="fas fa-check-circle"></i> প্রতি সপ্তাহে একবার 445 Diamonds ক্লেইম করতে পারবেন<br>
+                    <i class="fas fa-check-circle"></i> 7000 Coins জমা করলেই পাবেন<br>
+                    <i class="fas fa-check-circle"></i> Unlimited Withdrawals - যত সপ্তাহ খুশি!
+                </p>
+            </div>
+        </div>
+        
+        <!-- Admin Stats -->
+        <div class="card" id="adminStats" style="display: none;">
+            <h3><i class="fas fa-chart-bar"></i> YOUR REFERRAL STATS</h3>
+            <div style="color: #aaa; text-align: center; padding: 10px;">
+                <div id="referStats">No referrals yet</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== WITHDRAWAL PAGE ========== -->
+    <div id="withdrawalPage" class="withdrawal-container">
+        <div class="nav-bar">
+            <button class="nav-btn" onclick="showPage('dashboard')">
+                <i class="fas fa-arrow-left"></i> ড্যাশবোর্ড
+            </button>
+            <button class="nav-btn active">
+                <i class="fas fa-money-bill-wave"></i> উইথড্রয়াল
+            </button>
+            <button class="nav-btn" onclick="showPage('admin')" id="adminNavBtn2" style="display:none;">
+                <i class="fas fa-cogs"></i> অ্যাডমিন
+            </button>
+            <button class="nav-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> লগআউট
+            </button>
+        </div>
+        
+        <div class="header">
+            <div class="logo">💰</div>
+            <h1>WEEKLY WITHDRAWAL</h1>
+            <p class="tagline">Claim your Weekly Free Fire Diamonds</p>
+        </div>
+        
+        <!-- Withdrawal Form -->
+        <div class="withdrawal-form fade-in">
+            <h3><i class="fas fa-gem"></i> FREE FIRE DIAMOND REQUEST <span class="weekly-badge">WEEKLY</span></h3>
+            <p style="color: #aaa; margin: 10px 0 20px;">
+                <i class="fas fa-info-circle"></i> আপনার Free Fire UID দিন এবং Weekly Diamonds ক্লেইম করুন
+            </p>
+            
+            <div class="form-group">
+                <label for="withdrawalUID"><i class="fas fa-gamepad"></i> Free Fire UID</label>
+                <input type="text" id="withdrawalUID" placeholder="আপনার Free Fire UID (যেমন: 1234567890)">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-coins"></i> Required Coins: <span style="color:var(--primary)">7000</span></label>
+                <label><i class="fas fa-wallet"></i> Your Coins: <span id="withdrawalCoins" style="color:var(--success)">0</span></label>
+                <label><i class="fas fa-gem"></i> Diamonds You'll Get: <span style="color:var(--secondary); font-weight: bold; font-size: 18px;">445 💎 (Weekly)</span></label>
+            </div>
+            
+            <div id="weeklyStatus" style="margin: 15px 0; padding: 15px; background: rgba(255, 215, 0, 0.1); border-radius: 10px; display: none;">
+                <p style="color: #FFD700; font-size: 14px; margin: 0; text-align: center;" id="weeklyStatusText">
+                    <i class="fas fa-sync fa-spin"></i> Loading weekly status...
+                </p>
+            </div>
+            
+            <button class="btn" onclick="submitWithdrawal()" id="withdrawBtn" style="background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);">
+                <i class="fas fa-paper-plane"></i> REQUEST WEEKLY DIAMONDS
+            </button>
+            
+            <div style="margin-top: 20px; padding: 15px; background: rgba(0, 212, 255, 0.1); border-radius: 10px;">
+                <p style="color: #00D4FF; font-size: 12px; margin: 0;">
+                    <i class="fas fa-check-circle"></i> <strong>WEEKLY REWARD SYSTEM:</strong>
+                    <br>• প্রতি সপ্তাহে 7000 Coins দিয়ে 445 Diamonds পাবেন
+                    <br>• একই UID দিয়ে বারবার উইথড্র করা যাবে
+                    <br>• প্রতিটি সপ্তাহে নতুন করে ক্লেইম করতে পারবেন
+                    <br>• ডেলিভারি 24-48 ঘণ্টার মধ্যে
+                </p>
+            </div>
+        </div>
+        
+        <!-- Withdrawal History -->
+        <div class="withdrawal-history fade-in">
+            <h3><i class="fas fa-history"></i> WITHDRAWAL HISTORY</h3>
+            <div id="withdrawalHistory">
+                <p style="color: #aaa; text-align: center; padding: 20px;">
+                    <i class="fas fa-clock"></i> No withdrawal requests yet
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== ADMIN PANEL ========== -->
+    <div id="adminPage" class="admin-container">
+        <div class="nav-bar">
+            <button class="nav-btn" onclick="showPage('dashboard')">
+                <i class="fas fa-arrow-left"></i> ড্যাশবোর্ড
+            </button>
+            <button class="nav-btn active">
+                <i class="fas fa-cogs"></i> অ্যাডমিন
+            </button>
+            <button class="nav-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> লগআউট
+            </button>
+        </div>
+        
+        <div class="header">
+            <div class="logo">⚙️</div>
+            <h1>ADMIN PANEL</h1>
+            <p class="tagline">Manage users and withdrawals</p>
+        </div>
+        
+        <!-- Admin Stats -->
+        <div class="admin-grid">
+            <div class="admin-card fade-in">
+                <h3><i class="fas fa-chart-bar"></i> System Stats</h3>
+                <div id="adminStatsInfo">
+                    <p><i class="fas fa-sync fa-spin"></i> Loading statistics...</p>
+                </div>
+            </div>
+            
+            <div class="admin-card fade-in">
+                <h3><i class="fas fa-plus-circle"></i> Add Coins</h3>
+                <div class="form-group">
+                    <input type="email" id="adminUserEmail" placeholder="User Email" class="search-box">
+                    <input type="number" id="adminCoinsAmount" placeholder="Coins Amount" class="search-box">
+                </div>
+                <button class="btn" onclick="addCoinsToUser()">
+                    <i class="fas fa-coins"></i> Add Coins
+                </button>
+            </div>
+        </div>
+        
+        <!-- Pending Withdrawals -->
+        <div class="admin-card fade-in">
+            <h3><i class="fas fa-clock"></i> Pending Withdrawals</h3>
+            <input type="text" id="searchWithdrawals" placeholder="Search by UID or Email..." class="search-box" onkeyup="filterWithdrawals()">
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-user"></i> User</th>
+                            <th><i class="fas fa-envelope"></i> Email</th>
+                            <th><i class="fas fa-gamepad"></i> Free Fire UID</th>
+                            <th><i class="fas fa-coins"></i> Coins</th>
+                            <th><i class="fas fa-calendar"></i> Date</th>
+                            <th><i class="fas fa-cog"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingWithdrawals">
+                        <tr><td colspan="6" style="text-align:center; padding:20px;">
+                            <i class="fas fa-sync fa-spin"></i> Loading...
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- User Management -->
+        <div class="admin-card fade-in">
+            <h3><i class="fas fa-users"></i> User Management</h3>
+            <input type="text" id="searchUsers" placeholder="Search users..." class="search-box" onkeyup="filterUsers()">
+            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-user"></i> Name</th>
+                            <th><i class="fas fa-envelope"></i> Email</th>
+                            <th><i class="fas fa-coins"></i> Coins</th>
+                            <th><i class="fas fa-user-friends"></i> Refers</th>
+                            <th><i class="fas fa-calendar-plus"></i> Joined</th>
+                            <th><i class="fas fa-cog"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userList">
+                        <tr><td colspan="6" style="text-align:center; padding:20px;">
+                            <i class="fas fa-sync fa-spin"></i> Loading users...
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Withdrawal History -->
+        <div class="admin-card fade-in">
+            <h3><i class="fas fa-history"></i> All Withdrawals</h3>
+            <select id="withdrawalFilter" class="search-box" onchange="filterAllWithdrawals()">
+                <option value="all">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+            </select>
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-user"></i> User</th>
+                            <th><i class="fas fa-gamepad"></i> UID</th>
+                            <th><i class="fas fa-coins"></i> Coins</th>
+                            <th><i class="fas fa-info-circle"></i> Status</th>
+                            <th><i class="fas fa-calendar"></i> Date</th>
+                            <th><i class="fas fa-cog"></i> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allWithdrawals">
+                        <tr><td colspan="6" style="text-align:center; padding:20px;">
+                            <i class="fas fa-sync fa-spin"></i> Loading withdrawals...
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== QUIZ MODAL ========== -->
+    <div class="quiz-modal" id="quizModal">
+        <div class="quiz-content">
+            <h2 style="color: var(--primary);"><i class="fas fa-question-circle"></i> Daily Quiz</h2>
+            <div id="quizQuestion" class="question"></div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <button class="btn" onclick="submitAnswer()" id="submitBtn" disabled>
+                <i class="fas fa-paper-plane"></i> Submit Answer
+            </button>
+            <button class="btn" onclick="closeQuiz()" style="background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%); margin-top: 10px;">
+                <i class="fas fa-times"></i> Close Quiz
+            </button>
+        </div>
+    </div>
+    
+    <!-- ========== NOTIFICATION ========== -->
+    <div class="notification" id="notification"></div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // ============================================
+        // DATABASE SYSTEM (LocalStorage Based)
+        // ============================================
+        
+        // Database Keys
+        const DB_KEYS = {
+            USERS: 'diamond_king_users_v2',
+            WITHDRAWALS: 'diamond_king_withdrawals_v2',
+            REFERRALS: 'diamond_king_referrals_v2',
+            SETTINGS: 'diamond_king_settings_v2',
+            CURRENT_USER: 'diamond_king_current_user_v2'
+        };
+        
+        // App Constants
+        const REQUIRED_COINS = 7000;
+        const DIAMONDS_PER_WITHDRAWAL = 445;
+        const WEEKLY_COOLDOWN_DAYS = 7;
+        const MAX_QUIZ_COINS = 30; // Maximum coins from quiz
+        
+        // Quiz Questions
+        const quizQuestions = [
+            { question: "৫ + ৩ = কত?", options: ["৭", "৮", "৯", "১০"], correct: 1 },
+            { question: "১২ - ৪ = কত?", options: ["৬", "৭", "৮", "৯"], correct: 2 },
+            { question: "৬ × ২ = কত?", options: ["১০", "১১", "১২", "১৩"], correct: 2 },
+            { question: "১৫ ÷ ৩ = কত?", options: ["৩", "৪", "৫", "৬"], correct: 2 },
+            { question: "৯ + ৭ = কত?", options: ["১৫", "১৬", "১৭", "১৮"], correct: 1 }
+        ];
+        
+        // Global Variables
+        let currentUser = null;
+        let isAdmin = false;
+        let currentQuestion = 0;
+        let selectedAnswer = null;
+        let quizScore = 0;
+        
+        // ============================================
+        // DATABASE FUNCTIONS
+        // ============================================
+        
+        // Initialize Database
+        function initDatabase() {
+            // Create default data if not exists
+            if (!localStorage.getItem(DB_KEYS.USERS)) {
+                localStorage.setItem(DB_KEYS.USERS, JSON.stringify([]));
+            }
+            
+            if (!localStorage.getItem(DB_KEYS.WITHDRAWALS)) {
+                localStorage.setItem(DB_KEYS.WITHDRAWALS, JSON.stringify([]));
+            }
+            
+            if (!localStorage.getItem(DB_KEYS.REFERRALS)) {
+                localStorage.setItem(DB_KEYS.REFERRALS, JSON.stringify([]));
+            }
+            
+            if (!localStorage.getItem(DB_KEYS.SETTINGS)) {
+                localStorage.setItem(DB_KEYS.SETTINGS, JSON.stringify({
+                    adminEmail: "admin@diamondking.com",
+                    adminPassword: "admin123",
+                    appName: "Diamond King",
+                    version: "2.0"
+                }));
+            }
+        }
+        
+        // User Functions
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(DB_KEYS.USERS)) || [];
+        }
+        
+        function saveUsers(users) {
+            localStorage.setItem(DB_KEYS.USERS, JSON.stringify(users));
+        }
+        
+        function getWithdrawals() {
+            return JSON.parse(localStorage.getItem(DB_KEYS.WITHDRAWALS)) || [];
+        }
+        
+        function saveWithdrawals(withdrawals) {
+            localStorage.setItem(DB_KEYS.WITHDRAWALS, JSON.stringify(withdrawals));
+        }
+        
+        function getCurrentUser() {
+            const userData = localStorage.getItem(DB_KEYS.CURRENT_USER);
+            return userData ? JSON.parse(userData) : null;
+        }
+        
+        function setCurrentUser(user) {
+            if (user) {
+                localStorage.setItem(DB_KEYS.CURRENT_USER, JSON.stringify(user));
+            } else {
+                localStorage.removeItem(DB_KEYS.CURRENT_USER);
+            }
+        }
+        
+        // ============================================
+        // AUTHENTICATION FUNCTIONS
+        // ============================================
+        
+        function showTab(tab) {
+            // Update tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.login-form').forEach(form => form.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+        
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showNotification('ইমেইল এবং পাসওয়ার্ড দিন', 'error');
+                return;
+            }
+            
+            // Show loader
+            const loginBtn = document.getElementById('loginBtn');
+            const loginLoader = document.getElementById('loginLoader');
+            loginBtn.style.display = 'none';
+            loginLoader.style.display = 'block';
+            
+            setTimeout(() => {
+                const users = getUsers();
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Check if admin
+                    const settings = JSON.parse(localStorage.getItem(DB_KEYS.SETTINGS));
+                    if (email === settings.adminEmail && password === settings.adminPassword) {
+                        user.isAdmin = true;
+                    }
+                    
+                    // Update last login
+                    user.lastLogin = new Date().toISOString();
+                    const userIndex = users.findIndex(u => u.id === user.id);
+                    users[userIndex] = user;
+                    saveUsers(users);
+                    
+                    setCurrentUser(user);
+                    showApp();
+                    showNotification('সফলভাবে লগইন করা হয়েছে!', 'success');
+                } else {
+                    showNotification('ভুল ইমেইল বা পাসওয়ার্ড', 'error');
+                }
+                
+                // Hide loader
+                loginBtn.style.display = 'block';
+                loginLoader.style.display = 'none';
+            }, 1000);
+        }
+        
+        function register() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const referralCode = document.getElementById('regReferral').value.trim().toUpperCase();
+            
+            // Validation
+            if (!name || !email || !password) {
+                showNotification('নাম, ইমেইল এবং পাসওয়ার্ড পূরণ করুন', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showNotification('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে', 'error');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showNotification('সঠিক ইমেইল দিন', 'error');
+                return;
+            }
+            
+            // Show loader
+            const registerBtn = document.getElementById('registerBtn');
+            const registerLoader = document.getElementById('registerLoader');
+            registerBtn.style.display = 'none';
+            registerLoader.style.display = 'block';
+            
+            setTimeout(() => {
+                const users = getUsers();
+                
+                // Check if user exists
+                if (users.find(u => u.email === email)) {
+                    showNotification('এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে', 'error');
+                    registerBtn.style.display = 'block';
+                    registerLoader.style.display = 'none';
+                    return;
+                }
+                
+                // Generate referral code
+                const userReferralCode = 'DK-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                
+                // Create user object
+                const newUser = {
+                    id: 'user_' + Date.now(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    coins: 50, // Registration bonus
+                    referralCode: userReferralCode,
+                    referredBy: referralCode || '',
+                    totalRefers: 0,
+                    referrals: [],
+                    totalWithdrawn: 0,
+                    withdrawalHistory: [],
+                    dailyEarned: 0,
+                    quizCoinsEarned: 0, // Track quiz coins earned
+                    lastWithdrawal: null,
+                    createdAt: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    isAdmin: false
+                };
+                
+                // Save user
+                users.push(newUser);
+                saveUsers(users);
+                
+                // Give referral bonus if applicable
+                if (referralCode) {
+                    const referrer = users.find(u => u.referralCode === referralCode);
+                    if (referrer) {
+                        referrer.coins += 50;
+                        referrer.totalRefers += 1;
+                        referrer.referrals.push({
+                            userId: newUser.id,
+                            email: email,
+                            bonus: 50,
+                            date: new Date().toISOString()
+                        });
+                        saveUsers(users);
+                    }
+                }
+                
+                // Auto login
+                setCurrentUser(newUser);
+                showApp();
+                showNotification('রেজিস্ট্রেশন সফল! ৫০ কয়েন বোনাস পেয়েছেন!', 'success');
+                
+                // Hide loader
+                registerBtn.style.display = 'block';
+                registerLoader.style.display = 'none';
+            }, 1500);
+        }
+        
+        function logout() {
+            if (confirm('আপনি লগআউট করতে চান?')) {
+                setCurrentUser(null);
+                showLogin();
+                showNotification('সফলভাবে লগআউট করা হয়েছে', 'success');
+            }
+        }
+        
+        // ============================================
+        // APP NAVIGATION
+        // ============================================
+        
+        function showLogin() {
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('appPage').style.display = 'none';
+            document.getElementById('withdrawalPage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'none';
+            
+            // Clear form fields
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('regName').value = '';
+            document.getElementById('regEmail').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regReferral').value = '';
+        }
+        
+        function showApp() {
+            const user = getCurrentUser();
+            if (!user) {
+                showLogin();
+                return;
+            }
+            
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appPage').style.display = 'block';
+            document.getElementById('withdrawalPage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'none';
+            
+            // Update UI
+            updateDashboard();
+            
+            // Show admin button if admin
+            if (user.isAdmin) {
+                document.getElementById('adminNavBtn').style.display = 'block';
+                document.getElementById('adminNavBtn2').style.display = 'block';
+            } else {
+                document.getElementById('adminNavBtn').style.display = 'none';
+                document.getElementById('adminNavBtn2').style.display = 'none';
+            }
+        }
+        
+        function showPage(page) {
+            const user = getCurrentUser();
+            if (!user) {
+                showLogin();
+                return;
+            }
+            
+            // Update navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            if (page === 'dashboard') {
+                document.getElementById('appPage').style.display = 'block';
+                document.getElementById('withdrawalPage').style.display = 'none';
+                document.getElementById('adminPage').style.display = 'none';
+                document.querySelector('#appPage .nav-btn:nth-child(1)').classList.add('active');
+                updateDashboard();
+            } else if (page === 'withdrawal') {
+                document.getElementById('appPage').style.display = 'none';
+                document.getElementById('withdrawalPage').style.display = 'block';
+                document.getElementById('adminPage').style.display = 'none';
+                document.querySelector('#withdrawalPage .nav-btn:nth-child(2)').classList.add('active');
+                loadWithdrawalPage();
+            } else if (page === 'admin') {
+                if (!user.isAdmin) {
+                    showNotification('অ্যাডমিন এক্সেস নেই!', 'error');
+                    showPage('dashboard');
+                    return;
+                }
+                document.getElementById('appPage').style.display = 'none';
+                document.getElementById('withdrawalPage').style.display = 'none';
+                document.getElementById('adminPage').style.display = 'block';
+                document.querySelector('#adminPage .nav-btn:nth-child(2)').classList.add('active');
+                loadAdminPage();
+            }
+        }
+        
+        function goToWithdrawal() {
+            showPage('withdrawal');
+        }
+        
+        // ============================================
+        // DASHBOARD FUNCTIONS
+        // ============================================
+        
+        function updateDashboard() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            // Update user info
+            document.getElementById('userEmail').innerHTML = `<i class="fas fa-user"></i> ${user.email}`;
+            document.getElementById('totalCoins').textContent = user.coins || 0;
+            document.getElementById('dailyEarnings').textContent = user.dailyEarned || 0;
+            document.getElementById('totalRefers').textContent = user.totalRefers || 0;
+            document.getElementById('userReferralCode').textContent = user.referralCode || 'DK-XXXXXX';
+            
+            // Calculate diamonds
+            const diamonds = Math.floor((user.coins || 0) / (REQUIRED_COINS / DIAMONDS_PER_WITHDRAWAL));
+            document.getElementById('diamondsText').textContent = `${diamonds} 💎`;
+            
+            // Update progress
+            const progress = Math.min(((user.coins || 0) / REQUIRED_COINS) * 100, 100);
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${user.coins || 0}/${REQUIRED_COINS}`;
+            
+            // Update quiz progress
+            const quizProgress = Math.min(((user.quizCoinsEarned || 0) / MAX_QUIZ_COINS) * 100, 100);
+            document.getElementById('quizProgressFill').style.width = quizProgress + '%';
+            document.getElementById('quizProgressText').textContent = `${user.quizCoinsEarned || 0}/${MAX_QUIZ_COINS}`;
+            
+            // Disable quiz button if max quiz coins reached
+            const quizBtn = document.getElementById('quizBtn');
+            if (user.quizCoinsEarned >= MAX_QUIZ_COINS) {
+                quizBtn.disabled = true;
+                quizBtn.innerHTML = '<i class="fas fa-check"></i> QUIZ COMPLETED';
+                quizBtn.style.opacity = '0.5';
+            } else {
+                quizBtn.disabled = false;
+                quizBtn.innerHTML = '<i class="fas fa-play"></i> START QUIZ NOW';
+                quizBtn.style.opacity = '1';
+            }
+            
+            // Show referral stats
+            if (user.referrals && user.referrals.length > 0) {
+                document.getElementById('adminStats').style.display = 'block';
+                let lastRef = 'None';
+                if (user.referrals.length > 0) {
+                    const last = user.referrals[user.referrals.length - 1];
+                    lastRef = last.email || 'Unknown';
+                }
+                document.getElementById('referStats').innerHTML = `
+                    <div style="color: var(--primary); font-size: 24px;">${user.totalRefers}</div>
+                    <div>Total Referrals</div>
+                    <div style="color: #888; font-size: 12px; margin-top: 5px;">
+                        Last: ${lastRef}
+                    </div>
+                `;
+            } else {
+                document.getElementById('adminStats').style.display = 'none';
+            }
+        }
+        
+        // ============================================
+        // LIMITED QUIZ FUNCTIONS (MAX 30 COINS)
+        // ============================================
+        
+        function startQuiz() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            // Check if user has reached max quiz coins
+            if (user.quizCoinsEarned >= MAX_QUIZ_COINS) {
+                showNotification(`আপনি ইতিমধ্যে ${MAX_QUIZ_COINS} Quiz Coins অর্জন করেছেন! আর Quiz খেলতে পারবেন না।`, 'info');
+                return;
+            }
+            
+            // Reset quiz variables
+            currentQuestion = 0;
+            quizScore = 0;
+            selectedAnswer = null;
+            
+            document.getElementById('quizModal').style.display = 'block';
+            loadQuestion();
+        }
+        
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestion];
+            document.getElementById('quizQuestion').textContent = question.question;
+            
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'quiz-btn';
+                button.textContent = option;
+                button.onclick = () => selectAnswer(index);
+                optionsDiv.appendChild(button);
+            });
+            
+            document.getElementById('submitBtn').disabled = true;
+        }
+        
+        function selectAnswer(index) {
+            selectedAnswer = index;
+            const buttons = document.querySelectorAll('.quiz-btn');
+            buttons.forEach(btn => {
+                btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            });
+            buttons[index].style.background = 'rgba(0, 212, 255, 0.3)';
+            buttons[index].style.borderColor = '#00D4FF';
+            document.getElementById('submitBtn').disabled = false;
+        }
+        
+        function submitAnswer() {
+            if (selectedAnswer === null) return;
+            
+            const question = quizQuestions[currentQuestion];
+            
+            // Check if correct
+            if (selectedAnswer === question.correct) {
+                quizScore++;
+                showNotification('✅ সঠিক উত্তর!', 'success');
+            } else {
+                showNotification('❌ ভুল উত্তর! সঠিক উত্তর: ' + question.options[question.correct], 'error');
+            }
+            
+            // Move to next question
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < quizQuestions.length) {
+                    loadQuestion();
+                } else {
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+        
+        function finishQuiz() {
+            const user = getCurrentUser();
+            if (!user) {
+                document.getElementById('quizModal').style.display = 'none';
+                return;
+            }
+            
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === user.id);
+            
+            if (userIndex === -1) {
+                document.getElementById('quizModal').style.display = 'none';
+                return;
+            }
+            
+            if (quizScore === 5) {
+                // Check remaining quiz coins
+                const remainingQuizCoins = MAX_QUIZ_COINS - users[userIndex].quizCoinsEarned;
+                
+                if (remainingQuizCoins >= 5) {
+                    // User can get full 5 coins
+                    users[userIndex].quizCoinsEarned += 5;
+                    users[userIndex].coins += 5;
+                    users[userIndex].dailyEarned += 5;
+                    
+                    if (remainingQuizCoins - 5 === 0) {
+                        showNotification(`🎉 ৫/৫ সঠিক! আপনি পেলেন 5 Coins! আপনার সর্বোচ্চ ${MAX_QUIZ_COINS} Quiz Coins অর্জন করেছেন।`, 'success');
+                    } else {
+                        showNotification(`🎉 ৫/৫ সঠিক! আপনি পেলেন 5 Coins! Quiz থেকে আরও ${remainingQuizCoins - 5} Coins পাওয়া যাবে।`, 'success');
+                    }
+                } else if (remainingQuizCoins > 0) {
+                    // User can get partial coins
+                    users[userIndex].quizCoinsEarned += remainingQuizCoins;
+                    users[userIndex].coins += remainingQuizCoins;
+                    users[userIndex].dailyEarned += remainingQuizCoins;
+                    showNotification(`🎉 ৫/৫ সঠিক! আপনি পেলেন ${remainingQuizCoins} Coins! আপনার সর্বোচ্চ ${MAX_QUIZ_COINS} Quiz Coins অর্জন করেছেন।`, 'success');
+                } else {
+                    // User has already earned max quiz coins (should not reach here)
+                    showNotification('🎉 ৫/৫ সঠিক! কিন্তু আপনি ইতিমধ্যে 30 Quiz Coins অর্জন করেছেন।', 'info');
+                }
+            } else {
+                showNotification(`আপনি পেয়েছেন ${quizScore}/5 সঠিক। সবগুলো সঠিক না হলে Coins পাবেন না।`, 'warning');
+            }
+            
+            saveUsers(users);
+            setCurrentUser(users[userIndex]);
+            updateDashboard();
+            
+            document.getElementById('quizModal').style.display = 'none';
+        }
+        
+        function closeQuiz() {
+            document.getElementById('quizModal').style.display = 'none';
+        }
+        
+        // ============================================
+        // WITHDRAWAL FUNCTIONS
+        // ============================================
+        
+        function loadWithdrawalPage() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            document.getElementById('withdrawalCoins').textContent = user.coins || 0;
+            checkWeeklyStatus();
+            
+            // Load withdrawal history
+            const withdrawals = getWithdrawals();
+            const userWithdrawals = withdrawals.filter(w => w.userId === user.id);
+            
+            const historyDiv = document.getElementById('withdrawalHistory');
+            
+            if (userWithdrawals.length === 0) {
+                historyDiv.innerHTML = `
+                    <p style="color: #aaa; text-align: center; padding: 20px;">
+                        <i class="fas fa-clock"></i> No withdrawal requests yet
+                    </p>
+                `;
+                return;
+            }
+            
+            let historyHTML = '';
+            userWithdrawals.sort((a, b) => new Date(b.requestedAt) - new Date(a.requestedAt)).forEach((data, index) => {
+                const date = new Date(data.requestedAt).toLocaleDateString('bn-BD', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                historyHTML += `
+                    <div class="history-item">
+                        <div><strong>Weekly Request #${index + 1}</strong></div>
+                        <div><i class="fas fa-gamepad"></i> UID: ${data.freeFireUID}</div>
+                        <div><i class="fas fa-coins"></i> Coins: ${data.coins}</div>
+                        <div><i class="fas fa-gem"></i> Diamonds: ${DIAMONDS_PER_WITHDRAWAL} 💎</div>
+                        <div>Status: <span class="status-${data.status}">${data.status.toUpperCase()}</span></div>
+                        <div><i class="fas fa-calendar"></i> Date: ${date}</div>
+                    </div>
+                `;
+            });
+            
+            historyDiv.innerHTML = historyHTML;
+        }
+        
+        function checkWeeklyStatus() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const weeklyStatusDiv = document.getElementById('weeklyStatus');
+            const statusText = document.getElementById('weeklyStatusText');
+            const withdrawBtn = document.getElementById('withdrawBtn');
+            
+            weeklyStatusDiv.style.display = 'block';
+            
+            // Check if user has enough coins
+            if ((user.coins || 0) < REQUIRED_COINS) {
+                const neededCoins = REQUIRED_COINS - (user.coins || 0);
+                statusText.innerHTML = `<i class="fas fa-exclamation-triangle"></i> You need <strong>${neededCoins}</strong> more coins to claim weekly diamonds!`;
+                weeklyStatusDiv.style.background = 'rgba(255, 71, 87, 0.1)';
+                statusText.style.color = '#FF4757';
+                withdrawBtn.disabled = true;
+                withdrawBtn.style.opacity = '0.5';
+                return;
+            }
+            
+            // Check last withdrawal date for weekly cooldown
+            if (user.lastWithdrawal) {
+                const lastWithdrawalDate = new Date(user.lastWithdrawal);
+                const now = new Date();
+                const daysSinceLastWithdrawal = Math.floor((now - lastWithdrawalDate) / (1000 * 60 * 60 * 24));
+                
+                if (daysSinceLastWithdrawal < WEEKLY_COOLDOWN_DAYS) {
+                    const daysLeft = WEEKLY_COOLDOWN_DAYS - daysSinceLastWithdrawal;
+                    statusText.innerHTML = `<i class="fas fa-clock"></i> You can claim weekly diamonds in <strong>${daysLeft}</strong> days!`;
+                    weeklyStatusDiv.style.background = 'rgba(255, 215, 0, 0.1)';
+                    statusText.style.color = '#FFD700';
+                    withdrawBtn.disabled = true;
+                    withdrawBtn.style.opacity = '0.5';
+                    return;
+                }
+            }
+            
+            // User can withdraw
+            statusText.innerHTML = `<i class="fas fa-check-circle"></i> You can claim your weekly <strong>${DIAMONDS_PER_WITHDRAWAL} Diamonds</strong> now!`;
+            weeklyStatusDiv.style.background = 'rgba(46, 213, 115, 0.1)';
+            statusText.style.color = '#2ED573';
+            withdrawBtn.disabled = false;
+            withdrawBtn.style.opacity = '1';
+        }
+        
+        function submitWithdrawal() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const uid = document.getElementById('withdrawalUID').value.trim();
+            
+            // Validation
+            if (!uid) {
+                showNotification('Free Fire UID দিন', 'error');
+                return;
+            }
+            
+            if (uid.length < 6 || uid.length > 15) {
+                showNotification('UID ৬-১৫ ডিজিটের হতে হবে', 'error');
+                return;
+            }
+            
+            if ((user.coins || 0) < REQUIRED_COINS) {
+                showNotification(`আপনার আরও ${REQUIRED_COINS - (user.coins || 0)} কয়েন দরকার`, 'error');
+                return;
+            }
+            
+            // Check weekly cooldown
+            if (user.lastWithdrawal) {
+                const lastWithdrawalDate = new Date(user.lastWithdrawal);
+                const now = new Date();
+                const daysSinceLastWithdrawal = Math.floor((now - lastWithdrawalDate) / (1000 * 60 * 60 * 24));
+                
+                if (daysSinceLastWithdrawal < WEEKLY_COOLDOWN_DAYS) {
+                    const daysLeft = WEEKLY_COOLDOWN_DAYS - daysSinceLastWithdrawal;
+                    showNotification(`আপনি ${daysLeft} দিন পর আবার উইথড্র করতে পারবেন!`, 'error');
+                    return;
+                }
+            }
+            
+            // Create withdrawal request
+            const withdrawalId = 'WD' + Date.now();
+            const withdrawalData = {
+                id: withdrawalId,
+                userId: user.id,
+                userName: user.name,
+                userEmail: user.email,
+                freeFireUID: uid,
+                coins: REQUIRED_COINS,
+                diamonds: DIAMONDS_PER_WITHDRAWAL,
+                status: 'pending',
+                requestedAt: new Date().toISOString(),
+                processedAt: null,
+                adminNote: '',
+                type: 'weekly'
+            };
+            
+            // Save withdrawal
+            const withdrawals = getWithdrawals();
+            withdrawals.push(withdrawalData);
+            saveWithdrawals(withdrawals);
+            
+            // Update user coins and last withdrawal
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === user.id);
+            if (userIndex !== -1) {
+                users[userIndex].coins -= REQUIRED_COINS;
+                users[userIndex].totalWithdrawn += REQUIRED_COINS;
+                users[userIndex].lastWithdrawal = new Date().toISOString();
+                users[userIndex].withdrawalHistory.push(withdrawalId);
+                saveUsers(users);
+                
+                // Update current user
+                setCurrentUser(users[userIndex]);
+            }
+            
+            // Clear form
+            document.getElementById('withdrawalUID').value = '';
+            
+            // Update UI
+            loadWithdrawalPage();
+            updateDashboard();
+            
+            showNotification(`Weekly withdrawal submitted! You will get ${DIAMONDS_PER_WITHDRAWAL} Diamonds within 24-48 hours.`, 'success');
+        }
+        
+        // ============================================
+        // ADMIN FUNCTIONS
+        // ============================================
+        
+        function loadAdminPage() {
+            const user = getCurrentUser();
+            if (!user || !user.isAdmin) return;
+            
+            loadAdminStats();
+            loadPendingWithdrawals();
+            loadAllUsers();
+            loadAllWithdrawals();
+        }
+        
+        function loadAdminStats() {
+            const users = getUsers();
+            const withdrawals = getWithdrawals();
+            
+            const totalUsers = users.length;
+            const totalWithdrawals = withdrawals.length;
+            const pendingWithdrawals = withdrawals.filter(w => w.status === 'pending').length;
+            const approvedWithdrawals = withdrawals.filter(w => w.status === 'approved').length;
+            const rejectedWithdrawals = withdrawals.filter(w => w.status === 'rejected').length;
+            
+            let totalCoins = 0;
+            let totalDiamonds = 0;
+            let totalQuizCoins = 0;
+            users.forEach(user => {
+                totalCoins += user.coins || 0;
+                totalDiamonds += Math.floor((user.coins || 0) / (REQUIRED_COINS / DIAMONDS_PER_WITHDRAWAL));
+                totalQuizCoins += user.quizCoinsEarned || 0;
+            });
+            
+            // Weekly withdrawals
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+            const weeklyWithdrawals = withdrawals.filter(w => 
+                w.type === 'weekly' && 
+                new Date(w.requestedAt) >= oneWeekAgo
+            ).length;
+            
+            const diamondsThisWeek = weeklyWithdrawals * DIAMONDS_PER_WITHDRAWAL;
+            const totalDiamondsGiven = approvedWithdrawals * DIAMONDS_PER_WITHDRAWAL;
+            
+            document.getElementById('adminStatsInfo').innerHTML = `
+                <div class="stats-grid" style="margin-top: 10px;">
+                    <div class="stat-box">
+                        <div class="stat-value">${totalUsers}</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${totalWithdrawals}</div>
+                        <div class="stat-label">Total Withdrawals</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${pendingWithdrawals}</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${weeklyWithdrawals}</div>
+                        <div class="stat-label">Weekly (7 days)</div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+                    <p><i class="fas fa-coins"></i> Total Coins: <strong>${totalCoins}</strong></p>
+                    <p><i class="fas fa-gem"></i> Diamonds This Week: <strong>${diamondsThisWeek} 💎</strong></p>
+                    <p><i class="fas fa-gem"></i> Total Diamonds Given: <strong>${totalDiamondsGiven} 💎</strong></p>
+                    <p><i class="fas fa-question-circle"></i> Total Quiz Coins Earned: <strong>${totalQuizCoins}</strong></p>
+                </div>
+            `;
+        }
+        
+        function loadPendingWithdrawals() {
+            const withdrawals = getWithdrawals();
+            const pending = withdrawals.filter(w => w.status === 'pending');
+            
+            const tableBody = document.getElementById('pendingWithdrawals');
+            
+            if (pending.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">No pending withdrawals</td></tr>';
+                return;
+            }
+            
+            let html = '';
+            pending.sort((a, b) => new Date(b.requestedAt) - new Date(a.requestedAt)).forEach(data => {
+                const date = new Date(data.requestedAt).toLocaleDateString('bn-BD', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                const typeBadge = data.type === 'weekly' ? '<span class="weekly-badge" style="font-size:10px; padding:2px 5px;">WEEKLY</span>' : '';
+                
+                html += `
+                    <tr>
+                        <td>${data.userName} ${typeBadge}</td>
+                        <td>${data.userEmail}</td>
+                        <td>${data.freeFireUID}</td>
+                        <td>${data.coins}</td>
+                        <td>${date}</td>
+                        <td>
+                            <button class="action-btn approve-btn" onclick="processWithdrawal('${data.id}', 'approved')">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="action-btn reject-btn" onclick="processWithdrawal('${data.id}', 'rejected')">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+        
+        function loadAllUsers() {
+            const users = getUsers();
+            
+            const tableBody = document.getElementById('userList');
+            
+            if (users.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">No users found</td></tr>';
+                return;
+            }
+            
+            let html = '';
+            users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(user => {
+                const date = new Date(user.createdAt).toLocaleDateString('bn-BD', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                html += `
+                    <tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.coins || 0}</td>
+                        <td>${user.totalRefers || 0}</td>
+                        <td>${date}</td>
+                        <td>
+                            <button class="action-btn add-coins-btn" onclick="addCoinsToUserPrompt('${user.email}')">
+                                <i class="fas fa-coins"></i> Add Coins
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+        
+        function loadAllWithdrawals() {
+            const withdrawals = getWithdrawals();
+            
+            const tableBody = document.getElementById('allWithdrawals');
+            
+            if (withdrawals.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">No withdrawals found</td></tr>';
+                return;
+            }
+            
+            let html = '';
+            withdrawals.sort((a, b) => new Date(b.requestedAt) - new Date(a.requestedAt)).forEach(data => {
+                const date = new Date(data.requestedAt).toLocaleDateString('bn-BD', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                const typeBadge = data.type === 'weekly' ? '<span class="weekly-badge" style="font-size:10px; padding:2px 5px;">WEEKLY</span>' : '';
+                
+                html += `
+                    <tr>
+                        <td>${data.userName} ${typeBadge}</td>
+                        <td>${data.freeFireUID}</td>
+                        <td>${data.coins}</td>
+                        <td><span class="status-${data.status}">${data.status.toUpperCase()}</span></td>
+                        <td>${date}</td>
+                        <td>
+                            <button class="action-btn approve-btn" onclick="processWithdrawal('${data.id}', 'approved')" ${data.status !== 'pending' ? 'disabled' : ''}>
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="action-btn reject-btn" onclick="processWithdrawal('${data.id}', 'rejected')" ${data.status !== 'pending' ? 'disabled' : ''}>
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tableBody.innerHTML = html;
+        }
+        
+        function processWithdrawal(withdrawalId, status) {
+            const user = getCurrentUser();
+            if (!user || !user.isAdmin) {
+                showNotification('Admin access required!', 'error');
+                return;
+            }
+            
+            if (!confirm(`Are you sure you want to ${status} this withdrawal?`)) {
+                return;
+            }
+            
+            const withdrawals = getWithdrawals();
+            const withdrawalIndex = withdrawals.findIndex(w => w.id === withdrawalId);
+            
+            if (withdrawalIndex === -1) {
+                showNotification('Withdrawal not found!', 'error');
+                return;
+            }
+            
+            const withdrawalData = withdrawals[withdrawalIndex];
+            withdrawals[withdrawalIndex].status = status;
+            withdrawals[withdrawalIndex].processedAt = new Date().toISOString();
+            
+            // If rejected, return coins to user
+            if (status === 'rejected') {
+                const users = getUsers();
+                const userIndex = users.findIndex(u => u.id === withdrawalData.userId);
+                if (userIndex !== -1) {
+                    users[userIndex].coins += withdrawalData.coins;
+                    users[userIndex].totalWithdrawn -= withdrawalData.coins;
+                    saveUsers(users);
+                }
+            }
+            
+            saveWithdrawals(withdrawals);
+            showNotification(`Withdrawal ${status} successfully!`, 'success');
+            loadAdminPage();
+        }
+        
+        function addCoinsToUserPrompt(email) {
+            document.getElementById('adminUserEmail').value = email;
+        }
+        
+        function addCoinsToUser() {
+            const user = getCurrentUser();
+            if (!user || !user.isAdmin) {
+                showNotification('Admin access required!', 'error');
+                return;
+            }
+            
+            const email = document.getElementById('adminUserEmail').value.trim();
+            const coins = parseInt(document.getElementById('adminCoinsAmount').value);
+            
+            if (!email || !coins || coins <= 0) {
+                showNotification('Please enter valid email and coins amount', 'error');
+                return;
+            }
+            
+            if (coins > 10000) {
+                showNotification('Maximum 10,000 coins can be added at once', 'error');
+                return;
+            }
+            
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.email === email);
+            
+            if (userIndex === -1) {
+                showNotification('User not found!', 'error');
+                return;
+            }
+            
+            users[userIndex].coins += coins;
+            saveUsers(users);
+            
+            // Clear form
+            document.getElementById('adminUserEmail').value = '';
+            document.getElementById('adminCoinsAmount').value = '';
+            
+            showNotification(`${coins} coins added to ${email}`, 'success');
+            loadAllUsers();
+            loadAdminStats();
+        }
+        
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(135deg, #2ED573 0%, #1E90FF 100%)';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%)';
+            } else if (type === 'warning') {
+                notification.style.background = 'linear-gradient(135deg, #FFD700 0%, #FF8C00 100%)';
+            } else if (type === 'info') {
+                notification.style.background = 'linear-gradient(135deg, #00D4FF 0%, #667eea 100%)';
+            }
+            
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        function showReferralInfo() {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const code = user.referralCode || 'DK-XXXXXX';
+            const shareText = `Join Diamond King using my referral code: ${code}\n\nEarn Free Fire Diamonds weekly! 🎮💎`;
+            
+            alert(`তোমার Referral Code: ${code}\n\nএই কোডটি বন্ধুদের দাও। তারা রেজিস্ট্রেশনের সময় এই কোড ব্যবহার করলে তুমি পাবে 50 Coins।\n\nShare Text:\n${shareText}`);
+            
+            // Copy to clipboard
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('Referral text copied to clipboard!', 'success');
+                });
+            }
+        }
+        
+        // Filter functions
+        function filterWithdrawals() {
+            const input = document.getElementById('searchWithdrawals').value.toLowerCase();
+            const rows = document.querySelectorAll('#pendingWithdrawals tr');
+            
+            rows.forEach(row => {
+                if (row.cells) {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(input) ? '' : 'none';
+                }
+            });
+        }
+        
+        function filterUsers() {
+            const input = document.getElementById('searchUsers').value.toLowerCase();
+            const rows = document.querySelectorAll('#userList tr');
+            
+            rows.forEach(row => {
+                if (row.cells) {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(input) ? '' : 'none';
+                }
+            });
+        }
+        
+        function filterAllWithdrawals() {
+            const status = document.getElementById('withdrawalFilter').value;
+            const rows = document.querySelectorAll('#allWithdrawals tr');
+            
+            rows.forEach(row => {
+                if (row.cells && row.cells.length > 3) {
+                    const statusCell = row.cells[3];
+                    const statusText = statusCell.textContent.toLowerCase();
+                    
+                    if (status === 'all' || statusText.includes(status)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        function initApp() {
+            // Initialize database
+            initDatabase();
+            
+            // Check if user is already logged in
+            const user = getCurrentUser();
+            if (user) {
+                showApp();
+            } else {
+                showLogin();
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl + L to logout
+            if (e.ctrlKey && e.key === 'l') {
+                logout();
+            }
+            
+            // Escape to close quiz
+            if (e.key === 'Escape') {
+                closeQuiz();
+            }
+        });
+    </script>
+</body>
+</html>
